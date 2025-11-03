@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modern Developer Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="script.js" defer></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
@@ -134,22 +135,62 @@
         .section {
             padding: 120px 0;
         }
-
-        .active-nav {
-            color: #818cf8;
+        
+        /* --- Yangilangan Navbar Stillari --- */
+        .nav-link {
+            display: inline-block;
+            padding: 8px 0;
+            font-weight: 500;
+            color: #e2e8f0; /* slate-200 */
             position: relative;
+            transition: color 0.3s ease;
+            text-decoration: none;
         }
 
-        .active-nav::after {
+        .nav-link:hover {
+            color: #818cf8; /* primary-400 */
+        }
+
+        /* Desktop menyu uchun chiziqcha */
+        .hidden.md\:flex .nav-link::after {
             content: '';
             position: absolute;
             bottom: -5px;
             left: 0;
-            width: 100%;
+            width: 0;
             height: 2px;
             background: linear-gradient(90deg, #818cf8, #ec4899);
             border-radius: 2px;
+            transition: width 0.3s ease;
         }
+        .hidden.md\:flex .nav-link:hover::after,
+        .hidden.md\:flex .active-nav::after {
+            width: 100%;
+        }
+
+        .active-nav {
+            color: #818cf8; /* primary-400 */
+            position: relative;
+        }
+
+        /* Mobil menyu uchun maxsus stillar */
+        #mobile-menu .nav-link {
+            display: block; /* To'liq kenglik */
+            padding: 10px 12px;
+            border-radius: 6px;
+        }
+        #mobile-menu .nav-link:hover {
+            background-color: #334155; /* slate-700 */
+            color: #e2e8f0; /* slate-200 */
+        }
+        #mobile-menu .active-nav {
+            background-color: #6366f1; /* primary-500 */
+            color: white;
+        }
+        #mobile-menu .nav-link::after {
+            display: none; /* Mobil menyuda chiziqcha kerak emas */
+        }
+        /* --- Navbar Stillari Tugadi --- */
 
         .alert {
             padding: 12px 16px;
@@ -182,27 +223,58 @@
                 padding: 80px 0;
             }
         }
+        
+        /* --- FOYDALANUVCHI QO'SHGAN ANIMATSIYA --- */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .animate-fadeIn {
+            animation: fadeIn 1s ease-out forwards;
+            opacity: 0; /* Animatsiyadan oldin yashirin */
+        }
     </style>
 </head>
 
 <body class="relative">
     <div id="particles-js"></div>
 
-    <!-- Navigation -->
-    <nav class="fixed w-full z-50 backdrop-blur-sm py-4 px-6">
-        <div class="container mx-auto flex flex-wrap items-center justify-between">
-            <a href="#home" class="text-xl lg:text-2xl font-bold tracking-wide">
-                <span class="text-white">Portfolio</span>
+    <!-- --- YANGILANGAN NAVBAR --- -->
+    <nav class="fixed w-full z-50 backdrop-blur-sm bg-darkBg/80 py-4 px-4 sm:px-6 shadow-lg">
+        <div class="container mx-auto flex items-center justify-between">
+            <!-- Logo -->
+            <a href="#home" class="text-xl lg:text-2xl font-bold tracking-wide text-white">
+                Portfolio
             </a>
 
+            <!-- Desktop Menu (Mobil qurilmalarda yashirin) -->
+            <div class="hidden md:flex md:space-x-8">
+                <a href="#home" class="nav-link active-nav">Home</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#skills" class="nav-link">Skills</a>
+                <a href="#projects" class="nav-link">Projects</a>
+                <a href="#experience" class="nav-link">Experience</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+
+            <!-- Mobile Menu Toggle (Desktopda yashirin) -->
             <button id="menu-toggle" class="md:hidden block text-white focus:outline-none">
                 <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
             </button>
+        </div>
 
-            <div id="mobile-menu"
-                class="md:flex hidden md:flex-row flex-col w-full md:w-auto md:space-x-10 mt-4 md:mt-0">
+        <!-- Mobile Menu (Ochilib-yopiladigan) -->
+        <div id="mobile-menu" class="hidden md:hidden mt-4">
+            <!-- Orqa fon va stillar uchun ichki div -->
+            <div class="flex flex-col space-y-2 px-2 pt-2 pb-4 bg-midBg/95 rounded-lg border border-slate-700">
                 <a href="#home" class="nav-link active-nav">Home</a>
                 <a href="#about" class="nav-link">About</a>
                 <a href="#skills" class="nav-link">Skills</a>
@@ -212,15 +284,18 @@
             </div>
         </div>
     </nav>
+    <!-- --- NAVBAR TUGADI --- -->
+
 
     <!-- Hero Section -->
     <section id="home" class="relative min-h-screen flex items-center overflow-hidden">
         <div class="hero-gradient absolute w-full h-full top-0 left-0"></div>
-        <div class="container mx-auto px-4 relative z-10">
+        <!-- Navbar balandligi uchun 'padding-top' qo'shildi -->
+        <div class="container mx-auto px-4 relative z-10 pt-24"> 
             <div class="flex flex-col md:flex-row items-center">
                 <div class="md:w-1/2 mb-16 md:mb-0">
                     <h1 class="text-4xl md:text-6xl font-bold mb-4">
-                        Hi, I'm <span class="text-gradient">John Doe</span>
+                        Hi, I'm <span class="text-gradient">Akbar Nazarov</span>
                     </h1>
                     <h2 class="text-3xl md:text-4xl font-bold mb-6">
                         Full Stack JavaScript Developer
@@ -276,9 +351,10 @@
                     <div class="relative h-96 w-full overflow-hidden rounded-xl glow-box">
                         <div class="absolute w-full h-full bg-gradient-to-t from-dark to-transparent z-10"></div>
                         <div class="absolute inset-0 bg-gradient-to-r from-primary/20 to-accent/20 z-0"></div>
-                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80"
-                            alt="" class="w-full h-full object-cover relative transform scale-110"
-                            style="mix-blend-mode: lighten;">
+                        <img src="../image/my-image.png"
+                            alt="Mening rasmim" class="w-full h-full object-cover relative transform scale-110"
+                            style="mix-blend-mode: lighten;"
+                            onerror="this.src=`https://placehold.co/600x400/1e293b/e2e8f0?text=Akbar+Nazarov`">
                     </div>
                 </div>
 
@@ -300,7 +376,7 @@
                             <p class="text-sm mt-1">Projects</p>
                         </div>
                         <div class="text-center bg-midBg p-4 rounded-xl border border-slate-600">
-                            <span class="text-primary text-3xl font-bold">5+</span>
+                            <span class="text-primary text-3xl font-bold">3+</span>
                             <p class="text-sm mt-1">Years Experience</p>
                         </div>
                         <div class="text-center bg-midBg p-4 rounded-xl border border-slate-600">
@@ -308,7 +384,7 @@
                             <p class="text-sm mt-1">Happy Clients</p>
                         </div>
                         <div class="text-center bg-midBg p-4 rounded-xl border border-slate-600">
-                            <span class="text-primary text-3xl font-bold">5M+</span>
+                            <span class="text-primary text-3xl font-bold">5K+</span>
                             <p class="text-sm mt-1">Users Worldwide</p>
                         </div>
                     </div>
@@ -354,6 +430,15 @@
                         <div>
                             <div class="flex justify-between mb-1">
                                 <span>JavaScript</span>
+                                <span>90%</span>
+                            </div>
+                            <div class="w-full bg-dark rounded-full h-2">
+                                <div class="bg-primary h-2 rounded-full" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span>React.js</span>
                                 <span>90%</span>
                             </div>
                             <div class="w-full bg-dark rounded-full h-2">
@@ -437,41 +522,43 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-[60px]">
-                <div class="project-card group">
+                <div class="project-card group h-[450px]">
                     <div class="h-64 overflow-hidden rounded-xl">
                         <div class="w-full h-full bg-gradient-to-tr from-secondary/20 to-accent/40 relative">
                             <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1674&q=80"
-                                class="absolute inset-0 w-full h-full object-cover mix-blend-multiply" alt="Project 2">
+                                class="absolute inset-0 w-full h-full object-cover mix-blend-multiply" alt="Project 2"
+                                onerror="this.src='https://placehold.co/600x400/8b5cf6/e2e8f0?text=Project+1'">
                         </div>
                     </div>
-                    <div class="mt-6">
+                    <div class="mt-6 ml-[20px]">
                         <h3 class="text-xl font-bold mb-2">Social Media Dashboard</h3>
                         <p class="text-gray-400 mb-4">Real-time analytics dashboard for social media platforms</p>
                         <div class="flex flex-wrap gap-2">
-                            <span class="bg-secondary/10 text-secondary text-xs px-3 py-1.5 rounded-full">Vue.js</span>
+                            <span class="bg-secondary/10 text-secondary text-xs px-3 py-1.5 rounded-full">React.js</span>
                             <span class="bg-secondary/10 text-secondary text-xs px-3 py-1.5 rounded-full">Express</span>
                             <span
-                                class="bg-secondary/10 text-secondary text-xs px-3 py-1.5 rounded-full">Firebase</span>
-                            <span class="bg-secondary/10 text-secondary text-xs px-3 py-1.5 rounded-full">D3.js</span>
+                                class="bg-secondary/10 text-secondary text-xs px-3 py-1.5 rounded-full">Node.js</span>
+                            <span class="bg-secondary/10 text-secondary text-xs px-3 py-1.5 rounded-full">JavaScript</span>
                         </div>
                     </div>
                 </div>
 
-                <div class="project-card group">
+                <div class="project-card group h-[450px] rounded-5">
                     <div class="h-64 overflow-hidden rounded-xl">
                         <div class="w-full h-full bg-gradient-to-tr from-accent/20 to-primary/40 relative">
                             <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80"
-                                class="absolute inset-0 w-full h-full object-cover mix-blend-multiply" alt="Project 3">
+                                class="absolute inset-0 w-full h-full object-cover mix-blend-multiply" alt="Project 3"
+                                onerror="this.src='https://placehold.co/600x400/ec4899/e2e8f0?text=Project+2'">
                         </div>
                     </div>
-                    <div class="mt-6">
+                    <div class="mt-6 ml-[20px]">
                         <h3 class="text-xl font-bold mb-2">Task Management App</h3>
                         <p class="text-gray-400 mb-4">Collaborative task management platform with drag & drop features
                         </p>
                         <div class="flex flex-wrap gap-2">
-                            <span class="bg-accent/10 text-accent text-xs px-3 py-1.5 rounded-full">React</span>
-                            <span class="bg-accent/10 text-accent text-xs px-3 py-1.5 rounded-full">Redux</span>
-                            <span class="bg-accent/10 text-accent text-xs px-3 py-1.5 rounded-full">MongoDB</span>
+                            <span class="bg-accent/10 text-accent text-xs px-3 py-1.5 rounded-full">React.js</span>
+                            <span class="bg-accent/10 text-accent text-xs px-3 py-1.5 rounded-full">Node.js</span>
+                            <span class="bg-accent/10 text-accent text-xs px-3 py-1.5 rounded-full">Tailwind</span>
                             <span class="bg-accent/10 text-accent text-xs px-3 py-1.5 rounded-full">Websockets</span>
                         </div>
                     </div>
@@ -511,7 +598,7 @@
                         <i class="fas fa-briefcase text-primary"></i>
                     </div>
                     <div class="ml-4 bg-midBg p-6 rounded-xl border border-slate-600">
-                        <span class="inline-block px-3 py-1 text-xs bg-primary/10 text-primary rounded-full mb-3">2020 -
+                        <span class="inline-block px-3 py-1 text-xs bg-primary/10 text-primary rounded-full mb-3">2025 -
                             Present</span>
                         <h3 class="text-xl font-bold mb-2">Senior Full Stack Developer</h3>
                         <p class="text-primary font-semibold mb-3">Tech Innovations Inc.</p>
@@ -522,7 +609,6 @@
                         <div class="flex flex-wrap gap-2">
                             <span class="bg-dark text-gray-300 text-xs px-3 py-1.5 rounded-full">React</span>
                             <span class="bg-dark text-gray-300 text-xs px-3 py-1.5 rounded-full">Node.js</span>
-                            <span class="bg-dark text-gray-300 text-xs px-3 py-1.5 rounded-full">Docker</span>
                             <span class="bg-dark text-gray-300 text-xs px-3 py-1.5 rounded-full">AWS</span>
                         </div>
                     </div>
@@ -535,8 +621,8 @@
                     </div>
                     <div class="ml-4 bg-midBg p-6 rounded-xl border border-slate-600">
                         <span
-                            class="inline-block px-3 py-1 text-xs bg-secondary/10 text-secondary rounded-full mb-3">2018
-                            - 2020</span>
+                            class="inline-block px-3 py-1 text-xs bg-secondary/10 text-secondary rounded-full mb-3">2022
+                            - 2024</span>
                         <h3 class="text-xl font-bold mb-2">Frontend Developer</h3>
                         <p class="text-secondary font-semibold mb-3">Digital Solutions Co.</p>
                         <p class="text-gray-400 mb-4">
@@ -545,8 +631,8 @@
                         </p>
                         <div class="flex flex-wrap gap-2">
                             <span class="bg-dark text-gray-300 text-xs px-3 py-1.5 rounded-full">JavaScript</span>
-                            <span class="bg-dark text-gray-300 text-xs px-3 py-1.5 rounded-full">Vue.js</span>
-                            <span class="bg-dark text-gray-300 text-xs px-3 py-1.5 rounded-full">SCSS</span>
+                            <span class="bg-dark text-gray-300 text-xs px-3 py-1.5 rounded-full">React.js</span>
+                            <span class="bg-dark text-gray-300 text-xs px-3 py-1.5 rounded-full">Tailwind</span>
                             <span class="bg-dark text-gray-300 text-xs px-3 py-1.5 rounded-full">REST APIs</span>
                         </div>
                     </div>
@@ -558,9 +644,9 @@
                         <i class="fas fa-code text-accent"></i>
                     </div>
                     <div class="ml-4 bg-midBg p-6 rounded-xl border border-slate-600">
-                        <span class="inline-block px-3 py-1 text-xs bg-accent/10 text-accent rounded-full mb-3">2016 -
-                            2018</span>
-                        <h3 class="text-xl font-bold mb-2">Junior Web Developer</h3>
+                        <span class="inline-block px-3 py-1 text-xs bg-accent/10 text-accent rounded-full mb-3">2021 -
+                            2023</span>
+                        <h3 class="text-xl font-bold mb-2">Senior Web Developer</h3>
                         <p class="text-accent font-semibold mb-3">Startup Innovations</p>
                         <p class="text-gray-400 mb-4">
                             Built and maintained responsive websites. Collaborated with designers and backend developers
@@ -569,7 +655,7 @@
                         <div class="flex flex-wrap gap-2">
                             <span class="bg-dark text-gray-300 text-xs px-3 py-1.5 rounded-full">HTML/CSS</span>
                             <span class="bg-dark text-gray-300 text-xs px-3 py-1.5 rounded-full">JavaScript</span>
-                            <span class="bg-dark text-gray-300 text-xs px-3 py-1.5 rounded-full">WordPress</span>
+                            <span class="bg-dark text-gray-300 text-xs px-3 py-1.5 rounded-full">Tailwind</span>
                         </div>
                     </div>
                 </div>
@@ -694,24 +780,27 @@
                     <p class="text-gray-400 mt-2">Crafting digital experiences that matter</p>
                 </div>
 
+                <!-- Footerdagi linklarga ham 'nav-link' klassi berilgan, shuning uchun ular ham stillanadi -->
                 <div class="flex flex-wrap justify-center gap-6">
-                    <a href="#home" class="text-gray-300 hover:text-primary">Home</a>
-                    <a href="#about" class="text-gray-300 hover:text-primary">About</a>
-                    <a href="#skills" class="text-gray-300 hover:text-primary">Skills</a>
-                    <a href="#projects" class="text-gray-300 hover:text-primary">Projects</a>
-                    <a href="#contact" class="text-gray-300 hover:text-primary">Contact</a>
+                    <a href="#home" class="nav-link">Home</a>
+                    <a href="#about" class="nav-link">About</a>
+                    <a href="#skills" class="nav-link">Skills</a>
+                    <a href="#projects" class="nav-link">Projects</a>
+                    <a href="#experience" class="nav-link">Experience</a>
+                    <a href="#contact" class="nav-link">Contact</a>
                 </div>
             </div>
 
             <div class="border-t border-slate-800 mt-10 pt-6 text-center">
-                <p class="text-gray-500">&copy; 2023 John Doe. All rights reserved.</p>
+                <p class="text-gray-500">&copy; 2025 Akbar Nazarov. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
-    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    <script src="script.js"></script>
+
+
 </body>
 
 </html>
+
