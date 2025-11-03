@@ -237,7 +237,7 @@
         }
         .animate-fadeIn {
             animation: fadeIn 1s ease-out forwards;
-            opacity: 0; /* Animatsiyadan oldin yashirin */
+            opacity: 0;
         }
     </style>
 </head>
@@ -245,10 +245,8 @@
 <body class="relative">
     <div id="particles-js"></div>
 
-    <!-- --- YANGILANGAN NAVBAR --- -->
     <nav class="fixed w-full z-50 backdrop-blur-sm bg-darkBg/80 py-4 px-4 sm:px-6 shadow-lg">
         <div class="container mx-auto flex items-center justify-between">
-            <!-- Logo -->
             <a href="#home" class="text-xl lg:text-2xl font-bold tracking-wide text-white">
                 Portfolio
             </a>
@@ -521,8 +519,8 @@
                 <div class="w-24 h-1 bg-gradient-to-r from-primary to-accent mx-auto rounded-full"></div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-[60px]">
-                <div class="project-card group h-[450px]">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-[60px]" >
+                <div class="project-card group h-[450px]"  id="land">
                     <div class="h-64 overflow-hidden rounded-xl">
                         <div class="w-full h-full bg-gradient-to-tr from-secondary/20 to-accent/40 relative">
                             <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1674&q=80"
@@ -543,7 +541,7 @@
                     </div>
                 </div>
 
-                <div class="project-card group h-[450px] rounded-5">
+                <div class="project-card group h-[450px] rounded-5" id="land1">
                     <div class="h-64 overflow-hidden rounded-xl">
                         <div class="w-full h-full bg-gradient-to-tr from-accent/20 to-primary/40 relative">
                             <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80"

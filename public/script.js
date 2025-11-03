@@ -207,4 +207,10 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
+  document.getElementById("land").addEventListener("click", ()=>{
+    window.location="./ui dashboard/build/index.html"
+  })
+  document.getElementById("land1").addEventListener("click", ()=>{
+    window.location="./task manager/index.html"
+  })
 });

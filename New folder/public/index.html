@@ -237,7 +237,7 @@
         }
         .animate-fadeIn {
             animation: fadeIn 1s ease-out forwards;
-            opacity: 0; /* Animatsiyadan oldin yashirin */
+            opacity: 0; 
         }
     </style>
 </head>
@@ -245,15 +245,15 @@
 <body class="relative">
     <div id="particles-js"></div>
 
-    <!-- --- YANGILANGAN NAVBAR --- -->
+
     <nav class="fixed w-full z-50 backdrop-blur-sm bg-darkBg/80 py-4 px-4 sm:px-6 shadow-lg">
         <div class="container mx-auto flex items-center justify-between">
-            <!-- Logo -->
+    
             <a href="#home" class="text-xl lg:text-2xl font-bold tracking-wide text-white">
                 Portfolio
             </a>
 
-            <!-- Desktop Menu (Mobil qurilmalarda yashirin) -->
+   
             <div class="hidden md:flex md:space-x-8">
                 <a href="#home" class="nav-link active-nav">Home</a>
                 <a href="#about" class="nav-link">About</a>
@@ -271,9 +271,7 @@
             </button>
         </div>
 
-        <!-- Mobile Menu (Ochilib-yopiladigan) -->
         <div id="mobile-menu" class="hidden md:hidden mt-4">
-            <!-- Orqa fon va stillar uchun ichki div -->
             <div class="flex flex-col space-y-2 px-2 pt-2 pb-4 bg-midBg/95 rounded-lg border border-slate-700">
                 <a href="#home" class="nav-link active-nav">Home</a>
                 <a href="#about" class="nav-link">About</a>
@@ -284,13 +282,9 @@
             </div>
         </div>
     </nav>
-    <!-- --- NAVBAR TUGADI --- -->
 
-
-    <!-- Hero Section -->
     <section id="home" class="relative min-h-screen flex items-center overflow-hidden">
         <div class="hero-gradient absolute w-full h-full top-0 left-0"></div>
-        <!-- Navbar balandligi uchun 'padding-top' qo'shildi -->
         <div class="container mx-auto px-4 relative z-10 pt-24"> 
             <div class="flex flex-col md:flex-row items-center">
                 <div class="md:w-1/2 mb-16 md:mb-0">
